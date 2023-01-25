@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\BooksStoreRequest;
+use App\Http\Requests\API\BooksUpdateRequest;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -23,14 +25,14 @@ class BooksController extends Controller
         return response()->json($book);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(BooksStoreRequest $request): JsonResponse
     {
         $book = $this->book->create($request->all());
 
         return response()->json($book, 201);
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(BooksUpdateRequest $request, $id): JsonResponse
     {
         $book = $this->book->find($id);
         $book->update($request->all());

@@ -107,6 +107,21 @@ class BooksControllerTest extends TestCase
         });
     }
 
+    public function test_post_book_should_validate_when_try_create_a_invalid_book()
+    {
+        $response = $this->postJson('/api/books', []);
+
+        $response->assertStatus(422);
+
+        $response->assertJson(function (AssertableJson $json)
+        {
+            $json->hasAll([
+                'message',
+                'errors'
+            ]);
+        });
+    }
+
     public function test_put_book_endpoint()
     {
         Book::factory(1)->createOne();
@@ -137,29 +152,20 @@ class BooksControllerTest extends TestCase
         });
     }
 
-    public function test_patch_books_endpoint()
+    public function test_put_books_should_validate_when_try_update_a_invalid_book()
     {
         Book::factory(1)->createOne();
 
-        $book = [
-            'title' => 'New Title - Patch'
-        ];
+        $response = $this->putJson('/api/books/1', []);
 
-        $response = $this->patchJson('/api/books/1', $book);
+        $response->assertStatus(422);
 
-        $response->assertStatus(200);
-
-        $response->assertJson(function (AssertableJson $json) use ($book)
+        $response->assertJson(function (AssertableJson $json)
         {
             $json->hasAll([
-                'id',
-                'title',
-                'isbn',
-                'created_at',
-                'updated_at'
+                'message',
+                'errors'
             ]);
-
-            $json->where('title', $book['title']);
         });
     }
 
