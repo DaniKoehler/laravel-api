@@ -13,4 +13,4 @@ Trata-se de uma API REST com Laravel construida utilizando a metologia TDD.
 ## Testes
 #### Na pasta raiz do projeto
 
-- Execute os testes: php artisan test
+- Execute os testes: vendor/bin/phpunit --testdox Tests/Feature/API/BooksControllerTest.php
