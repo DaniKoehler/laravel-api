@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\API;
+namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,6 +11,7 @@ use App\Models\Book;
 class BooksControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     /**
      * A basic feature test example.
@@ -124,14 +125,14 @@ class BooksControllerTest extends TestCase
 
     public function test_put_book_endpoint()
     {
-        Book::factory(1)->createOne();
+        $bookTest = Book::factory(1)->createOne();
 
         $book = [
-            'title' => 'New Title',
-            'isbn' => '1234567890'
+            'title' => $this->faker->name(),
+            'isbn' => $this->faker->isbn13()
         ];
 
-        $response = $this->putJson('/api/books/1', $book);
+        $response = $this->putJson('/api/books/' . $bookTest->id, $book);
 
         $response->assertStatus(200);
 
