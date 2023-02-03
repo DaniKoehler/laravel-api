@@ -1,6 +1,6 @@
 # Rest API com Laravel
 
-Trata-se de uma API REST com Laravel construida utilizando a metologia TDD.
+Trata-se de uma API REST com Laravel construida utilizando a metologia TDD e Repository Patterns (DDD).
 
 ## Instalação
 
